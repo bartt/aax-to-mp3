@@ -16,6 +16,10 @@ const WS_PORT = 8087;
 const HOST = '0.0.0.0';
 const TMP_DIR = '/tmp/aax2mp3/';
 
+const MAX_FILE_SIZE = process.env.MAX_FILE_SIZE
+  ? process.env.MAX_FILE_SIZE
+  : 200 * 1024 * 1024;
+
 let globalWs = null;
 
 process.on('SIGINT', function () {
@@ -196,7 +200,9 @@ wss.on('connection', ws => {
 });
 
 app.post('/submit-form', (req, res) => {
-    new formidable.IncomingForm().parse(req)
+    new formidable.IncomingForm({
+        maxFileSize: MAX_FILE_SIZE
+    }).parse(req)
         .on('file', (name, file) => {
             output(util.format('Uploaded file', name, file.name));
             processFile(file);

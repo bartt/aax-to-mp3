@@ -159,7 +159,7 @@ async function processActivationBytes(activationBytes, path) {
 }
 
 async function processChecksum(checksum, path) {
-    process.chdir('tables');
+    process.chdir('/usr/src/app/tables');
 
     output(util.format("Computing activation bytes -- please wait..."));
     const activationBytesPromise = getActivationBytes(checksum);

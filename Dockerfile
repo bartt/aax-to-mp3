@@ -30,10 +30,10 @@ RUN apt-get -y install nodejs
 
 WORKDIR /usr/src/app
 
-RUN git clone https://github.com/inAudible-NG/tables
-RUN git clone https://github.com/KrumpetPirate/AAXtoMP3
+RUN git clone https://github.com/Sebelino/tables
+RUN git clone https://github.com/Sebelino/AAXtoMP3
 
-COPY package*.json ./
+COPY package.json package-lock.json ./
 
 RUN npm install
 
@@ -57,7 +57,8 @@ RUN apt-get -y install bc
 EXPOSE 8081 8087
 
 # Bundle app source
-COPY . .
+COPY index.html output.html server.js ./
+COPY public/ public/
 
 CMD ["node", "server.js"]
 
